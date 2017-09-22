@@ -23,6 +23,8 @@ def parse_args():
     parser.add_argument("-d", "--duration", default=5.0, type=float)
     parser.add_argument("-c", "--channels", default=0, nargs="+", type=int)
     parser.add_argument("-g", "--gain", type=int, default=10)
+    parser.add_argument("-n", "--numpy", default=False, action="store_true",
+                        help="Save output file in NumPy format (default: No)")
     return parser.parse_args()
 
 
@@ -35,7 +37,10 @@ def main():
         args.channels = [args.channels]
     samps = usrp.recv_num_samps(num_samps, args.freq, args.rate, args.channels, args.gain)
     with open(args.output_file, 'wb') as out_file:
-        np.save(out_file, samps, allow_pickle=False, fix_imports=False)
+        if args.numpy:
+            np.save(out_file, samps, allow_pickle=False, fix_imports=False)
+        else:
+            samps.tofile(out_file)
 
 if __name__ == "__main__":
     main()
