@@ -147,6 +147,29 @@ static void set_rx_iq_balance_1(
 BOOST_PYTHON_FUNCTION_OVERLOADS(overload_set_rx_iq_balance_0, set_rx_iq_balance_0, 2, 3);
 BOOST_PYTHON_FUNCTION_OVERLOADS(overload_set_rx_iq_balance_1, set_rx_iq_balance_1, 2, 3);
 
+static void set_gpio_attr_0(uhd::usrp::multi_usrp *multi_usrp,
+                            const std::string &bank,
+                            const std::string &attr,
+                            const uint32_t value,
+                            const uint32_t mask = 0xffffffff,
+                            const size_t mboard = 0)
+{
+    multi_usrp->set_gpio_attr(bank, attr, value, mask, mboard);
+}
+
+static void set_gpio_attr_1(uhd::usrp::multi_usrp *multi_usrp,
+                            const std::string &bank,
+                            const std::string &attr,
+                            const std::string &value,
+                            const uint32_t mask = 0xffffffff,
+                            const size_t mboard = 0)
+{
+    multi_usrp->set_gpio_attr(bank, attr, value, mask, mboard);
+}
+
+BOOST_PYTHON_FUNCTION_OVERLOADS(overload_set_gpio_attr_0, set_gpio_attr_0, 4, 6);
+BOOST_PYTHON_FUNCTION_OVERLOADS(overload_set_gpio_attr_1, set_gpio_attr_1, 4, 6);
+
 //
 // Boost.Python needs to know about default argument overloads
 //
@@ -255,7 +278,6 @@ BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(overload_get_tx_sensor, get_tx_sensor, 1,
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(overload_get_tx_sensor_names, get_tx_sensor_names, 0, 1);
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(overload_set_tx_iq_balance, set_tx_iq_balance, 1, 2);
 
-BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(overload_set_gpio_attr, set_gpio_attr, 3, 5);
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(overload_get_gpio_attr, get_gpio_attr, 2, 3);
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(overload_enumerate_registers, enumerate_registers, 0, 1);
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(overload_get_register_info, get_register_info, 1, 2);
@@ -399,7 +421,8 @@ void export_multi_usrp()
 
         // GPIO methods
         .def("get_gpio_banks"          , &multi_usrp::get_gpio_banks)
-        .def("set_gpio_attr"           , &multi_usrp::set_gpio_attr, overload_set_gpio_attr())
+        .def("set_gpio_attr"           , &set_gpio_attr_0, overload_set_gpio_attr_0())
+        .def("set_gpio_attr"           , &set_gpio_attr_1, overload_set_gpio_attr_1())
         .def("get_gpio_attr"           , &multi_usrp::get_gpio_attr, overload_get_gpio_attr())
         .def("enumerate_registers"     , &multi_usrp::enumerate_registers, overload_enumerate_registers())
         .def("get_register_info"       , &multi_usrp::get_register_info, overload_get_register_info())

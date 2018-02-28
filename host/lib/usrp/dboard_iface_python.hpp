@@ -9,6 +9,7 @@
 
 #include <uhd/usrp/dboard_iface.hpp>
 #include <uhd/usrp/gpio_defs.hpp>
+#include "../include/uhdlib/usrp/gpio_defs.hpp"
 
 void export_dboard_iface()
 {
