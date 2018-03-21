@@ -16,9 +16,6 @@ void export_time_spec()
     bp::class_<time_spec_t>("time_spec", bp::init<double>())
 
         // Methods
-        .def("get_system_time", &time_spec_t::get_system_time)
-        .staticmethod("get_system_time"                      )
-
         .def("from_ticks"     , &time_spec_t::from_ticks     )
         .staticmethod("from_ticks"                           )
 
