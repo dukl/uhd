@@ -23,6 +23,7 @@ void export_tune()
         ;
 
     bp::class_<tune_request_t>("tune_request", bp::init<double>())
+        .def(bp::init<double, double>())
         .def_readwrite("target_freq"    , &tune_request_t::target_freq    )
         .def_readwrite("rf_freq_policy" , &tune_request_t::rf_freq_policy )
         .def_readwrite("dsp_freq_policy", &tune_request_t::dsp_freq_policy)
